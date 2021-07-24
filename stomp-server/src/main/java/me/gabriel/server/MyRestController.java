@@ -22,7 +22,7 @@ public class MyRestController {
   @GetMapping("/enviar")
   public void send() {
     System.out.println("Enviando mensagem");
-    this.template.convertAndSend("/commands/sample", "Olá esp");
+    this.template.convertAndSend("/channel/output-1", "Olá esp");
 
   }
 

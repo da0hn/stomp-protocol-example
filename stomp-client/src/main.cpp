@@ -6,8 +6,8 @@
 /**
 * WiFi settings
 **/
-const char *wlan_ssid = "---INSIRA O WIFI AQUI---";
-const char *wlan_password = "---INSIRA A SENHA AQUI---";
+const char *wlan_ssid = "CURVO 2.4G";
+const char *wlan_password = "Josemaria11";
 
 /**
 * Stomp server settings
@@ -15,7 +15,7 @@ const char *wlan_password = "---INSIRA A SENHA AQUI---";
 bool useWSS = true;
 const char *ws_host = "192.168.100.11";
 const int ws_port = 8080;
-const char *ws_baseurl = "/gs-guide-websocket/"; // don't forget leading and trailing "/" !!!
+const char *ws_baseurl = "/ws/"; // don't forget leading and trailing "/" !!!
 
 bool sample = false;
 int blink = 0;
@@ -44,7 +44,8 @@ Stomp::Stomp_Ack_t handleSampleMessage(const Stomp::StompCommand cmd) {
 // Once the Stomp connection has been made, subscribe to a topic
 void subscribe(Stomp::StompCommand cmd) {
     Serial.println("Connected to STOMP broker");
-    stomper.subscribe("/commands/sample", Stomp::CLIENT, handleSampleMessage);
+    stomper.subscribe("/channel/output-1", Stomp::CLIENT, handleSampleMessage);
+    stomper.subscribe("/channel/output-2", Stomp::CLIENT, handleBlinkMessage);
 }
 
 void error(const Stomp::StompCommand cmd) {
@@ -53,13 +54,13 @@ void error(const Stomp::StompCommand cmd) {
 
 
 void takeSample() {
+    static int counter = 0;
     if (sample) {
-        stomper.sendMessage("/esp/sensors",
-                            "BATATATATATATATA");
+        stomper.sendMessage("/server/input",
+                            "Mensagem " + String(counter++));
         sample = false;
     }
 }
-
 
 void loop() {
     webSocket.loop();

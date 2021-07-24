@@ -20,9 +20,9 @@ public class MyController {
     this.template = template;
   }
 
-  @MessageMapping("/sensors")
+  @MessageMapping("/input")
   public void handleReading(@Payload String inbound) {
     System.out.println(inbound);
-    this.template.convertAndSend("/commands/sample", inbound);
+    this.template.convertAndSend("/channel/output-2", inbound);
   }
 }
