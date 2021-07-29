@@ -6,14 +6,14 @@
 /**
 * WiFi settings
 **/
-const char *wlan_ssid = "CURVO 2.4G";
-const char *wlan_password = "Josemaria11";
+const char *wlan_ssid = "wlan_ssid";
+const char *wlan_password = "wlan_password";
 
 /**
 * Stomp server settings
 **/
 bool useWSS = true;
-const char *ws_host = "192.168.100.11";
+const char *ws_host = "ip-springboot-server";
 const int ws_port = 8080;
 const char *ws_baseurl = "/ws/"; // don't forget leading and trailing "/" !!!
 
